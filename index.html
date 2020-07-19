@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+   .w3-color-picker-size {
+     width: 20px;
+     height: 20px;
+   }
+
+   .w3-content-area{
+        min-height: 1000px; 
+        min-width: 300px;
+      }
+   .w3-rlottie-area{
+        min-height: 400px; 
+    }
+   .w3-hidden-spacer{
+        height: 0px;
+        visibility:hidden;
+      }
+    .w3-lottie-color{background-color:#daebeb!important}  
+
+  .slidecontainer {
+    width: 100%;
+  }
+
+  .slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+  }
+  .slider:hover {
+    opacity: 1;
+  }
+
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #0394fc;
+    cursor: pointer;
+  }
+
+  .slider::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+  }
+</style>
+</head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/w3-cache.css">
+<body>
+
+<div class="w3-container w3-green">
+  <h1>Lottie Viewer</h1>
+  <p>Drag& Drop lottie file to view!</p>
+</div>
+
+
+<div class="w3-row w3-container  w3-light-grey ">
+  <div class="w3-quarter w3-border w3-hidden-spacer">
+  </div>
+  <div class="w3-half w3-container w3-border w3-panel w3-card w3-white w3-round-xlarge w3-content-area ">
+      <div class="w3-container w3-margin-bottom">
+        <input type="button" value="Choose File" 
+               class="w3-button w3-lottie-color w3-small w3-card w3-right w3-text-black w3-stretch w3-round ">
+      </div>
+      <div id="rlottie-drawing"class="w3-container w3-stretch  w3-rlottie-area">
+      </div>
+      <div class="w3-row">
+        <div class="w3-col w3-container w3-border " style="width:20px; height:40px;"></div>
+        <div class="w3-container w3-rest ">
+          <div class="slidecontainer w3-container ">
+            <input id="rlottie-slider" type="range" min="1" max="100" value="50" class="slider" >
+          </div>
+          <div class="w3-panel " style="padding:0">
+            <div class="w3-left w3-tiny w3-light-grey w3-padding">s</div>
+            <div class="w3-right w3-tiny w3-light-grey w3-padding">e</div>
+          </div>
+        </div>
+      </div>
+      <div class="w3-container w3-border-bottom w3-stretch w3-margin-bottom">
+      </div>
+      <div class="w3-container">
+        <div class="w3-container w3-row w3-stretch">
+          <div class="w3-threequarter w3-round-large  w3-lottie-color">
+            <div class="w3-container ">
+              <div class="w3-container w3-small w3-row ">
+                <p>Background Color :</p>
+              </div>
+              <div class="w3-container w3-row" style="width:400px;">
+                <span class="w3-tag w3-color-picker-size w3-red  w3-circle" onclick="document.getElementById('rlottie-drawing').style.backgroundColor = 'red'"></span>
+                <span class="w3-tag w3-color-picker-size w3-green  w3-circle" onclick="document.getElementById('rlottie-drawing').style.backgroundColor = 'green'"></span>
+                <span class="w3-tag w3-color-picker-size w3-blue  w3-circle" onclick="document.getElementById('rlottie-drawing').style.backgroundColor = 'blue'"></span>
+                <span class="w3-tag w3-color-picker-size w3-white  w3-circle" onclick="document.getElementById('rlottie-drawing').style.backgroundColor = 'white'"></span>
+                <span class="w3-tag w3-color-picker-size w3-black  w3-circle" onclick="document.getElementById('rlottie-drawing').style.backgroundColor = 'black'"></span>
+              </div>
+            </div>
+          </div>
+          <div class="w3-quarter w3-green w3-round-large w3-hidden-spacer">
+            <p> Other Half :</p>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="w3-quarter w3-border w3-hidden-spacer">
+  </div>
+</div>
+</body>
+</html>
