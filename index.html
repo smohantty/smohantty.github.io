@@ -68,21 +68,22 @@
 </div>
 
 
-<div class="w3-row w3-container  w3-light-grey ">
-  <div class="w3-quarter w3-border w3-hidden-spacer">
-  </div>
-  <div class="w3-half w3-container w3-border w3-panel w3-card w3-white w3-round-xlarge w3-content-area ">
+<div class="w3-container  w3-light-grey ">
+  <div class="w3-auto w3-container w3-border w3-panel w3-card w3-white w3-round-xlarge w3-content-area ">
       <div class="w3-container w3-margin-bottom">
         <input type="button" value="Choose File"
                class="w3-button w3-lottie-color w3-small w3-card w3-right w3-text-black w3-stretch w3-round ">
       </div>
-      <div id="rlottie-drawing"class="w3-container w3-stretch  w3-rlottie-area">
+      <div id="p-content-bg"class="w3-container w3-stretch  w3-rlottie-area">
+        <div id="p-content" class="w3-content w3-auto w3-stretch w3-rlottie-area" style="max-width:400px">
+          <canvas id="p-canvas">  </canvas>
+        </div>
       </div>
       <div class="w3-row">
         <div class="w3-col w3-container w3-border " style="width:20px; height:40px;"></div>
         <div class="w3-container w3-rest ">
           <div class="slidecontainer w3-container ">
-            <input id="rlottie-slider" type="range" min="1" max="100" value="50" class="slider" >
+            <input id="p-slider" type="range" min="1" max="100" value="50" class="slider" >
           </div>
           <div class="w3-panel " style="padding:0">
             <div class="w3-left w3-tiny w3-light-grey w3-padding">s</div>
@@ -100,11 +101,11 @@
                 <p>Background Color :</p>
               </div>
               <div class="w3-container w3-row" style="width:400px;">
-                <span class="w3-tag w3-color-picker-size w3-red  w3-circle" onclick="document.getElementById('rlottie-drawing').style.backgroundColor = 'red'"></span>
-                <span class="w3-tag w3-color-picker-size w3-green  w3-circle" onclick="document.getElementById('rlottie-drawing').style.backgroundColor = 'green'"></span>
-                <span class="w3-tag w3-color-picker-size w3-blue  w3-circle" onclick="document.getElementById('rlottie-drawing').style.backgroundColor = 'blue'"></span>
-                <span class="w3-tag w3-color-picker-size w3-white  w3-circle" onclick="document.getElementById('rlottie-drawing').style.backgroundColor = 'white'"></span>
-                <span class="w3-tag w3-color-picker-size w3-black  w3-circle" onclick="document.getElementById('rlottie-drawing').style.backgroundColor = 'black'"></span>
+                <span class="w3-tag w3-color-picker-size w3-red  w3-circle" onclick="document.getElementById('p-content-bg').style.backgroundColor = 'red'"></span>
+                <span class="w3-tag w3-color-picker-size w3-green  w3-circle" onclick="document.getElementById('p-content-bg').style.backgroundColor = 'green'"></span>
+                <span class="w3-tag w3-color-picker-size w3-blue  w3-circle" onclick="document.getElementById('p-content-bg').style.backgroundColor = 'blue'"></span>
+                <span class="w3-tag w3-color-picker-size w3-white  w3-circle" onclick="document.getElementById('p-content-bg').style.backgroundColor = 'white'"></span>
+                <span class="w3-tag w3-color-picker-size w3-black  w3-circle" onclick="document.getElementById('p-content-bg').style.backgroundColor = 'black'"></span>
               </div>
             </div>
           </div>
@@ -113,8 +114,6 @@
           </div>
         </div>
       </div>
-  </div>
-  <div class="w3-quarter w3-border w3-hidden-spacer">
   </div>
 </div>
 <script src="main.js"></script>
