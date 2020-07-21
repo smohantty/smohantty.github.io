@@ -95,19 +95,7 @@ class Player
           }
         }
     }
-    dragStart(evt)
-    {
-        evt.stopPropagation();
-        evt.preventDefault();
-        evt.dataTransfer.dropEffect = 'copy';
-    }
-    dropComplete(evt)
-    {
-        evt.stopPropagation();
-        evt.preventDefault();
 
-        this.handleFiles(evt.dataTransfer.files);
-    }
     constructor()
     {
         this.layout();
@@ -119,8 +107,17 @@ class Player
         document.getElementById("p-slider").addEventListener('input', ()=>{this.sliderDrag();});
         document.getElementById("p-selector-btn").addEventListener('click', ()=>{document.getElementById("p-selector").click();});
         document.getElementById('p-selector').addEventListener('change', ()=>{this.handleFiles(document.getElementById('p-selector').files);});
-        window.addEventListener('dragover', (evt)=>{this.dragStart(evt);}, false);
-        window.addEventListener('drop', (evt)=>{this.dropComplete(evt);}, false);
+        window.addEventListener('dragover', (evt)=>{
+                                                evt.stopPropagation();
+                                                evt.preventDefault();
+                                                evt.dataTransfer.dropEffect = 'copy';
+                                            }, false);
+
+        window.addEventListener('drop', (evt)=>{
+                                            evt.stopPropagation();
+                                            evt.preventDefault();
+                                            this.handleFiles(evt.dataTransfer.files);
+                                        }, false);
         this.btnUpdate();
     }
 }
