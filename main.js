@@ -72,6 +72,42 @@ class Player
             this.tick()
         }
     }
+
+    load(jsString)
+    {
+
+        this.rlottie.load(jsString);
+        this.frames = this.rlottie.frames();
+        this.frame = 0;
+        this.render();
+    }
+
+    handleFiles(files) {
+        for (var i = 0, f; f = files[i]; i++) {
+          if (f.type.includes('json')) {
+            var read = new FileReader();
+            read.readAsText(f);
+            read.onloadend = ()=> {
+                console.log("loaded");
+                this.load(read.result);
+            }
+            break;
+          }
+        }
+    }
+    dragStart(evt)
+    {
+        evt.stopPropagation();
+        evt.preventDefault();
+        evt.dataTransfer.dropEffect = 'copy';
+    }
+    dropComplete(evt)
+    {
+        evt.stopPropagation();
+        evt.preventDefault();
+
+        this.handleFiles(evt.dataTransfer.files);
+    }
     constructor()
     {
         this.layout();
@@ -81,6 +117,10 @@ class Player
         this.playing = false;
         document.getElementById("p-control").addEventListener('click', ()=>{this.btnUpdate();});
         document.getElementById("p-slider").addEventListener('input', ()=>{this.sliderDrag();});
+        document.getElementById("p-selector-btn").addEventListener('click', ()=>{document.getElementById("p-selector").click();});
+        document.getElementById('p-selector').addEventListener('change', ()=>{this.handleFiles(document.getElementById('p-selector').files);});
+        window.addEventListener('dragover', (evt)=>{this.dragStart(evt);}, false);
+        window.addEventListener('drop', (evt)=>{this.dropComplete(evt);}, false);
         this.btnUpdate();
     }
 }
