@@ -96,6 +96,20 @@ class Player
         }
     }
 
+    async loadFromUrlHelper(url) { 
+        let res = await fetch(url);
+        if (res.status == 200) {
+            let json = await res.text();
+            return json;
+        }
+        throw new Error(res.status);
+    }
+
+    loadFromUrl(url)
+    {
+        let req = this.loadFromUrlHelper(url);
+        req.then((value) => { this.load(value);});
+    }
     constructor()
     {
         this.layout();
@@ -103,6 +117,7 @@ class Player
         this.frames = this.rlottie.frames();
         this.frame = 0;
         this.playing = false;
+        this.loadFromUrl("/ao.json");
         document.getElementById("p-control").addEventListener('click', ()=>{this.btnUpdate();});
         document.getElementById("p-slider").addEventListener('input', ()=>{this.sliderDrag();});
         document.getElementById("p-selector-btn").addEventListener('click', ()=>{document.getElementById("p-selector").click();});
