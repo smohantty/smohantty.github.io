@@ -30,28 +30,47 @@ class Player
       document.getElementById("p-canvas").height  = size;
     }
 
-    sliderUpdate()
+    sliderUpdate(value)
     {
         document.getElementById("p-slider").max = this.frames;
         document.getElementById("p-slider").value = this.frame;
         document.getElementById("p-slider-cur").innerHTML = this.frame.toString();
         document.getElementById("p-slider-max").innerHTML = this.frames.toString();
     }
-    render(frame)
+    render()
     {
+        this.sliderUpdate();
+
         var canvas = document.getElementById('p-canvas');
-        var buffer = this.rlottie.render(frame, canvas.width, canvas.height)
+        var buffer = this.rlottie.render(this.frame, canvas.width, canvas.height)
         var imageData = new ImageData(Uint8ClampedArray.from(buffer), canvas.width, canvas.height);
         canvas.getContext('2d').putImageData(imageData, 0, 0);
     }
     tick()
     {
-        this.render(this.frame++);
-        if (this.frame >= this.frames) this.frame = 0;
+        if (!this.playing) return;
 
-        this.sliderUpdate();
+        this.render();
+
+        if (++this.frame >= this.frames) this.frame = 0;
 
         window.requestAnimationFrame(()=>{ this.tick();});
+    }
+    sliderDrag()
+    {
+        this.frame = parseInt(document.getElementById("p-slider").value);
+        this.render();
+    }
+    btnUpdate()
+    {
+        if (this.playing) {
+            this.playing = false;
+            document.getElementById("p-control").value = "Play";
+        } else {
+            this.playing = true;
+            document.getElementById("p-control").value = "Pause";
+            this.tick()
+        }
     }
     constructor()
     {
@@ -59,6 +78,9 @@ class Player
         this.rlottie = new Module.RlottieWasm();
         this.frames = this.rlottie.frames();
         this.frame = 0;
-        window.requestAnimationFrame(()=>{ this.tick();});
+        this.playing = false;
+        document.getElementById("p-control").addEventListener('click', ()=>{this.btnUpdate();});
+        document.getElementById("p-slider").addEventListener('input', ()=>{this.sliderDrag();});
+        this.btnUpdate();
     }
 }
