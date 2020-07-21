@@ -29,6 +29,14 @@ class Player
       document.getElementById("p-canvas").width  = size;
       document.getElementById("p-canvas").height  = size;
     }
+
+    sliderUpdate()
+    {
+        document.getElementById("p-slider").max = this.frames;
+        document.getElementById("p-slider").value = this.frame;
+        document.getElementById("p-slider-cur").innerHTML = this.frame.toString();
+        document.getElementById("p-slider-max").innerHTML = this.frames.toString();
+    }
     render(frame)
     {
         var canvas = document.getElementById('p-canvas');
@@ -40,6 +48,8 @@ class Player
     {
         this.render(this.frame++);
         if (this.frame >= this.frames) this.frame = 0;
+
+        this.sliderUpdate();
 
         window.requestAnimationFrame(()=>{ this.tick();});
     }
