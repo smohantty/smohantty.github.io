@@ -48,12 +48,11 @@ class Player
     }
     tick()
     {
-        if (!this.playing) return;
+        if (this.playing && this.frames > 0) {
+            this.render();
 
-        this.render();
-
-        if (++this.frame >= this.frames) this.frame = 0;
-
+            if (++this.frame >= this.frames) this.frame = 0;
+        }
         window.requestAnimationFrame(()=>{ this.tick();});
     }
     sliderDrag()
@@ -69,7 +68,6 @@ class Player
         } else {
             this.playing = true;
             document.getElementById("p-control").value = "Pause";
-            this.tick()
         }
     }
 
@@ -78,8 +76,10 @@ class Player
 
         this.rlottie.load(jsString);
         this.frames = this.rlottie.frames();
+        console.log("After loading from string");
+        console.log(this.frames);
         this.frame = 0;
-        this.render();
+        //this.render();
     }
 
     handleFiles(files) {
@@ -96,7 +96,7 @@ class Player
         }
     }
 
-    async loadFromUrlHelper(url) { 
+    async loadFromUrlHelper(url) {
         let res = await fetch(url);
         if (res.status == 200) {
             let json = await res.text();
@@ -112,12 +112,12 @@ class Player
     }
     constructor()
     {
+        this.loadFromUrl("/anubis.json");
         this.layout();
         this.rlottie = new Module.RlottieWasm();
         this.frames = this.rlottie.frames();
         this.frame = 0;
         this.playing = false;
-        this.loadFromUrl("/ao.json");
         document.getElementById("p-control").addEventListener('click', ()=>{this.btnUpdate();});
         document.getElementById("p-slider").addEventListener('input', ()=>{this.sliderDrag();});
         document.getElementById("p-selector-btn").addEventListener('click', ()=>{document.getElementById("p-selector").click();});
@@ -134,5 +134,8 @@ class Player
                                             this.handleFiles(evt.dataTransfer.files);
                                         }, false);
         this.btnUpdate();
+
+        // start the loop;
+        this.tick()
     }
 }
